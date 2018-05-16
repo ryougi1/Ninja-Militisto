@@ -16,9 +16,9 @@ public class GripManager : MonoBehaviour {
         var devicel = SteamVR_Controller.Input((int)left.controller.index);
 
 
-        bool isGripped = left.canGrip || right.canGrip;
+        bool canGrip = left.canGrip || right.canGrip;
         grippedPressed = devicel.GetTouch(SteamVR_Controller.ButtonMask.Trigger);
-        if (isGripped)
+        if (canGrip)
         {
             if (left.canGrip && grippedPressed) 
             {
@@ -40,22 +40,22 @@ public class GripManager : MonoBehaviour {
         {
             Body.useGravity = true;
             Body.isKinematic = false;
-
+            
         }
 
-        if (left.canGrip && devicel.GetTouchUp(SteamVR_Controller.ButtonMask.Trigger) && isGripped == false)
+        if (devicel.GetTouchUp(SteamVR_Controller.ButtonMask.Trigger))
         {
             Body.useGravity = true;
             Body.isKinematic = false;
-            Body.velocity = (left.prevPos - left.transform.localPosition) / Time.deltaTime;
+            Body.velocity = (left.prevPos - left.transform.localPosition) / Time.deltaTime * 0.35f;
 
-
+        
         }
-        if (right.canGrip && devicer.GetTouchUp(SteamVR_Controller.ButtonMask.Trigger) && isGripped == false)
+        if (devicer.GetTouchUp(SteamVR_Controller.ButtonMask.Trigger))
         {
             Body.useGravity = true;
             Body.isKinematic = false;
-            Body.velocity = (right.prevPos - right.transform.localPosition) / Time.deltaTime;
+            Body.velocity = (right.prevPos - right.transform.localPosition) / Time.deltaTime * 0.35f;
 
 
         }
