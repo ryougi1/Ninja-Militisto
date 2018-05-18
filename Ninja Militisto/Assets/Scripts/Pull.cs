@@ -18,7 +18,7 @@ public class Pull : MonoBehaviour
         prevPos = controller.transform.localPosition;
     }
 
-    private void OnTriggerEnter()
+    private void OnTriggerEnter(Collider obj)
     {
         canGrip = true;
     }

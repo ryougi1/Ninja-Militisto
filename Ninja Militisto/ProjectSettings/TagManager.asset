@@ -5,8 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - FxTemporaire
-  - projectile
   - Pickupable
+  - Grabbable
   layers:
   - Default
   - TransparentFX
@@ -20,7 +20,7 @@ TagManager:
   - Body
   - Grip
   - Environment
-  - 
+  - Walkable
   - 
   - 
   - 
