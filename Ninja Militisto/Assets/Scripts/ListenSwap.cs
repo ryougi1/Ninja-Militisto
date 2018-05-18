@@ -56,6 +56,11 @@ public class ListenSwap : MonoBehaviour {
         if (isLeftFoot)
         {
             modelHandLeft.transform.position += new Vector3(0f, -.3f, 0f);
+            
+           /* THIS
+           *  maybe this was the correct way but it should be:
+           *  modelHandLeft.transfrom.position = left.transform.position + new Vector3(0f, -.3f, 0f);
+           */
         }
         if (isRightFoot)
         {
