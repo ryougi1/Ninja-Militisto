@@ -14,6 +14,8 @@ public class Running : MonoBehaviour {
 
     private void OnTriggerEnter(Collider obj)
     {
+        if (controller.GetComponent<Running>().enabled == false)
+          return;
         canWalk = true;
     }
 

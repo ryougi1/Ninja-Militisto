@@ -20,6 +20,8 @@ public class Pull : MonoBehaviour
 
     private void OnTriggerEnter(Collider obj)
     {
+        if (controller.GetComponent<Pull>().enabled == false)
+            return;
         canGrip = true;
     }
 
