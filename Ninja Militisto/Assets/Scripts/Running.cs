@@ -13,13 +13,15 @@ public class Running : MonoBehaviour {
     }
 
     private void OnTriggerEnter(Collider obj)
-    {
+    //void OnCollisionEnter(Collision col) 
+    { 
         if (controller.GetComponent<Running>().enabled == false)
           return;
         canWalk = true;
     }
 
     private void OnTriggerExit()
+    //void OnCollisionExit(Collision col) 
     {
         canWalk = false;
     }

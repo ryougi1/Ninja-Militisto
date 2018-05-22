@@ -10,7 +10,8 @@ public class RunningManager : MonoBehaviour
     public Running right;
 
     public bool canWalk;
-    public bool doIt = false;
+    public bool isJumping = false;
+    uint counter = 0;
 
     // Update is called once per frame
     void FixedUpdate()
@@ -21,16 +22,16 @@ public class RunningManager : MonoBehaviour
 
         canWalk = left.canWalk || right.canWalk;
 
-        if (canWalk)
+        if (canWalk && !isJumping)
         {
             if (left.canWalk)
             {
                 Body.useGravity = false;
                 Body.isKinematic = true;
-                //left.prevPos.x = left.prevPos.x - left.transform.localPosition.x;
-                //left.prevPos.z = left.prevPos.z - left.transform.localPosition.z;
-               //Body.transform.position += left.prevPos;
-                Body.transform.position += new Vector3(1.5f*(left.prevPos.x - left.transform.localPosition.x), 0f, 1.5f*(left.prevPos.z - left.transform.localPosition.z));
+
+                //Body.transform.position += new Vector3(1.5f*(left.prevPos.x - left.transform.localPosition.x), 0f, 1.5f*(left.prevPos.z - left.transform.localPosition.z));
+                Body.AddForce(new Vector3(3f * (left.prevPos.x - left.transform.localPosition.x), 0f, 3f * (left.prevPos.z - left.transform.localPosition.z)), ForceMode.Impulse);
+                //Body.MovePosition(transform.position + new Vector3((left.prevPos.x - left.transform.localPosition.x), 0f, (left.prevPos.z - left.transform.localPosition.z)));
             }
 
 
@@ -38,12 +39,10 @@ public class RunningManager : MonoBehaviour
             {
                 Body.useGravity = false;
                 Body.isKinematic = true;
-                //right.prevPos.x = right.prevPos.x - right.transform.localPosition.x;
-                //right.prevPos.z = right.prevPos.z - right.transform.localPosition.z;
-                //Body.transform.position += right.prevPos;
 
-                //Body.transform.position += (right.prevPos - right.transform.localPosition);'
-                Body.transform.position += new Vector3(1.5f*(right.prevPos.x - right.transform.localPosition.x), 0f, 1.5f*(right.prevPos.z - right.transform.localPosition.z));
+                //Body.transform.position += new Vector3(1.5f*(right.prevPos.x - right.transform.localPosition.x), 0f, 1.5f*(right.prevPos.z - right.transform.localPosition.z));
+                Body.AddForce(new Vector3(3f * (right.prevPos.x - right.transform.localPosition.x), 0f, 3f * (right.prevPos.z - right.transform.localPosition.z)), ForceMode.Impulse);
+                //Body.MovePosition(transform.position + new Vector3((right.prevPos.x - right.transform.localPosition.x), 0f, (right.prevPos.z - right.transform.localPosition.z)));
             }
 
         }
@@ -51,25 +50,31 @@ public class RunningManager : MonoBehaviour
         {
             Body.useGravity = true;
             Body.isKinematic = false;
-
-            
         }
 
-        if ((devicer.GetPressDown(SteamVR_Controller.ButtonMask.Grip) || devicel.GetPressDown(SteamVR_Controller.ButtonMask.Grip)) && canWalk)
+        if (((devicer.GetPressDown(SteamVR_Controller.ButtonMask.Grip) && right.canWalk) || (devicel.GetPressDown(SteamVR_Controller.ButtonMask.Grip) && left.canWalk)) && isJumping == false)
         {
             //Body.velocity = (left.prevPos - left.transform.localPosition) / Time.deltaTime * 0.35f;
             //Body.velocity = (right.prevPos - right.transform.localPosition) / Time.deltaTime * 0.35f;
             //Body.velocity += new Vector3(0f, 10f, 0f);
             //Body.AddForce(Vector3.up * 8f);
 
+            isJumping = true;
+            Body.useGravity = true;
+            Body.isKinematic = false;
+
             //Body.velocity = new Vector3(70*(left.prevPos.x - left.controller.transform.localPosition.x), 10f, 70*(left.prevPos.z - left.controller.transform.localPosition.z));
-            Body.AddForce(0, 10f, 0, ForceMode.Impulse);
+            Body.AddForce(new Vector3(0.0f, 2.0f, 0.0f) * 2f, ForceMode.Impulse);
         }
-        doIt = !doIt;
-        if (doIt)
-        {
-            left.prevPos = left.controller.transform.localPosition;
-            right.prevPos = right.controller.transform.localPosition;
+        
+        left.prevPos = left.controller.transform.localPosition;
+        right.prevPos = right.controller.transform.localPosition;
+
+
+        if (isJumping && ++counter > 10) {
+            counter = 0;
+            isJumping = false;
         }
+
     }
 }

@@ -25,16 +25,16 @@ public class GripManager : MonoBehaviour {
             {
                 Body.useGravity = false;
                 Body.isKinematic = true;
-                Body.transform.position += (left.prevPos - left.transform.localPosition);
+                Body.MovePosition(transform.position + (left.prevPos - left.transform.localPosition));
             }
 
 
-            //if (right.canGrip && devicer.GetTouch(SteamVR_Controller.ButtonMask.Trigger))
               if (right.canGrip && devicer.GetPress(SteamVR_Controller.ButtonMask.Grip))
             {
                 Body.useGravity = false;
                 Body.isKinematic = true;
-                Body.transform.position += (right.prevPos - right.transform.localPosition);
+                Body.MovePosition(transform.position + (right.prevPos - right.transform.localPosition));
+
             }
 
         }
@@ -45,21 +45,19 @@ public class GripManager : MonoBehaviour {
             
         }
 
-        //if (devicel.GetTouchUp(SteamVR_Controller.ButtonMask.Trigger))
         if (left.canGrip && devicel.GetPressUp(SteamVR_Controller.ButtonMask.Grip) && canGrip == false)
         {
             Body.useGravity = true;
             Body.isKinematic = false;
-            //Body.velocity = (left.prevPos - left.transform.localPosition) / Time.deltaTime;// * 0.35f;
+            Body.velocity = (left.prevPos - left.transform.localPosition) / Time.deltaTime * 0.35f;
 
         
         }
-        //if (devicer.GetTouchUp(SteamVR_Controller.ButtonMask.Trigger))
         if (right.canGrip && devicer.GetPressUp(SteamVR_Controller.ButtonMask.Grip) && canGrip == false)
         {
             Body.useGravity = true;
             Body.isKinematic = false;
-            //Body.velocity = (right.prevPos - right.transform.localPosition) / Time.deltaTime;// * 0.35f;
+            Body.velocity = (right.prevPos - right.transform.localPosition) / Time.deltaTime * 0.35f;
 
 
         }
