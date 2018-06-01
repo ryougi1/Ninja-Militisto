@@ -8,7 +8,8 @@ public class ListenSwap : MonoBehaviour {
 
     public GameObject modelHandLeft;
     public GameObject modelHandRight;
-
+    public GameObject modelFootLeft;
+    public GameObject modelFootRight;
 
     private bool isLeftFoot, isRightFoot;
 
@@ -22,6 +23,11 @@ public class ListenSwap : MonoBehaviour {
             //modelHandLeft.GetComponent<Collider>().isTrigger = !modelHandLeft.GetComponent<Collider>().isTrigger;
             
             isLeftFoot = !isLeftFoot;
+            modelHandLeft.SetActive(!modelHandLeft.activeSelf);
+            modelFootLeft.SetActive(!modelFootLeft.activeSelf);
+            if (isLeftFoot == false)
+                leftHandController.GetComponent<Running>().canWalk = false;
+
             /*
             if (isLeftFoot)
             {
@@ -33,7 +39,7 @@ public class ListenSwap : MonoBehaviour {
                 modelHandLeft.transform.parent.gameObject.layer = LayerMask.NameToLayer("ControllerHand");
             }
             */
-            
+
         }
         if (SteamVR_Controller.Input((int)rightHandController.index).GetTouchDown(SteamVR_Controller.ButtonMask.Trigger))
         {
@@ -44,6 +50,10 @@ public class ListenSwap : MonoBehaviour {
 
             
             isRightFoot = !isRightFoot;
+            modelHandRight.SetActive(!modelHandRight.activeSelf);
+            modelFootRight.SetActive(!modelFootRight.activeSelf);
+            if (isRightFoot == false)
+                rightHandController.GetComponent<Running>().canWalk = false;
             /*
             if (isRightFoot)
             {
@@ -56,29 +66,41 @@ public class ListenSwap : MonoBehaviour {
                 modelHandRight.transform.parent.gameObject.layer = LayerMask.NameToLayer("ControllerHand");
             }
             */
-            
+
         }
 
-        if (isLeftFoot)
-        {
-            modelHandLeft.transform.position = leftHandController.transform.position + new Vector3(0f, -.7f, 0f);
-
-        } else
-        {
-            modelHandLeft.transform.position = leftHandController.transform.position;
-        }
-        if (isRightFoot)
-        {
-            modelHandRight.transform.position = rightHandController.transform.position + new Vector3(0f, -.7f, 0f);
-
-        } else
-        {
-            modelHandRight.transform.position = rightHandController.transform.position;
-        }
+        
     }
     
     void FixedUpdate()
     {
+        if (isLeftFoot)
+        {
+            //modelHandLeft.transform.position = leftHandController.transform.position + new Vector3(0f, -.7f, 0f);
+            modelFootLeft.transform.position = leftHandController.transform.position + new Vector3(0f, -.7f, 0f);
+
+        }
         
+        else
+        {
+            //modelHandLeft.transform.position = leftHandController.transform.position;
+            modelFootLeft.transform.position = leftHandController.transform.position;
+
+        }
+
+        if (isRightFoot)
+        {
+            //modelHandRight.transform.position = rightHandController.transform.position + new Vector3(0f, -.7f, 0f);
+            modelFootRight.transform.position = rightHandController.transform.position + new Vector3(0f, -.7f, 0f);
+
+        }
+        
+        else
+        {
+            //modelHandRight.transform.position = rightHandController.transform.position;
+            modelFootRight.transform.position = rightHandController.transform.position;
+
+        }
+
     }
 }

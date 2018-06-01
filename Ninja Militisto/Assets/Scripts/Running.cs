@@ -14,9 +14,9 @@ public class Running : MonoBehaviour {
 
     private void OnTriggerEnter(Collider obj)
     //void OnCollisionEnter(Collision col) 
-    { 
+    {
         if (controller.GetComponent<Running>().enabled == false)
-          return;
+            return;
         canWalk = true;
     }
 
@@ -28,6 +28,6 @@ public class Running : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
-		
+        
 	}
 }

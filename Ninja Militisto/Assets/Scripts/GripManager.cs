@@ -49,15 +49,14 @@ public class GripManager : MonoBehaviour {
         {
             Body.useGravity = true;
             Body.isKinematic = false;
-            Body.velocity = (left.prevPos - left.transform.localPosition) / Time.deltaTime * 0.35f;
-
-        
+            
+            Body.velocity = ((left.prevPos - left.transform.localPosition) / Time.deltaTime) * 0.1f;
         }
         if (right.canGrip && devicer.GetPressUp(SteamVR_Controller.ButtonMask.Grip) && canGrip == false)
         {
             Body.useGravity = true;
             Body.isKinematic = false;
-            Body.velocity = (right.prevPos - right.transform.localPosition) / Time.deltaTime * 0.35f;
+            Body.velocity = ((right.prevPos - right.transform.localPosition) / Time.deltaTime) * 0.1f;
 
 
         }
