@@ -5,7 +5,7 @@ INSTRUCTIONS
 
 1. Navigate to Builds and run Build.exe
 
-2. To play the game, the following is good to know (using HTC VIVE):
+2. To play the game, the following is good to know (using HTC VIVE): \n
 2.1 Change between controlling the characters hands and feet using the trigger button. 
 2.2 When using your feet:
 2.2.1 Put them down on the ground in front of you and imagine pulling yourself forward to walk. 
